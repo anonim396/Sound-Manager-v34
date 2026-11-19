@@ -1,0 +1,92 @@
+"Phrases"
+{
+	"Menu Title"
+	{
+		"en"	"Sound Manager"
+		"ru"	"Sound Manager"
+	}
+
+	"Menu Soundscapes"
+	{
+		"en"	"Soundscapes"
+		"ru"	"Саундскейпы"
+	}
+
+	"Menu Ambient Sounds"
+	{
+		"en"	"Ambient Sounds"
+		"ru"	"Амбиент звуки"
+	}
+
+	"Menu Normal Sounds"
+	{
+		"en"	"Normal Sounds"
+		"ru"	"Обычные звуки"
+	}
+
+	"Menu Trigger Sounds"
+	{
+		"en"	"Trigger Sounds"
+		"ru"	"Звуки триггеров"
+	}
+
+	"Menu Gun Sounds"
+	{
+		"en"	"Gun Sounds"
+		"ru"	"Звуки оружия"
+	}
+
+	"Menu Debug Prints"
+	{
+		"en"	"Debug Prints"
+		"ru"	"Дебаг сообщения"
+	}
+
+	"State Muted"
+	{
+		"en"	"Muted"
+		"ru"	"Мут"
+	}
+
+	"State On"
+	{
+		"en"	"On"
+		"ru"	"Вкл"
+	}
+
+	"State Yes"
+	{
+		"en"	"Yes"
+		"ru"	"Да"
+	}
+
+	"State No"
+	{
+		"en"	"No"
+		"ru"	"Нет"
+	}
+
+	"Debug Ambient Muted"
+	{
+		"en"	"[Debug] Ambient Muted (%s)"
+		"ru"	"[Дебаг] Амбиент звук заглушён (%s)"
+	}
+
+	"Debug Ambient Blocked"
+	{
+		"en"	"[Debug] Ambient Blocked"
+		"ru"	"[Дебаг] Амбиент звук заблокирован"
+	}
+
+	"Debug Sound Blocked"
+	{
+		"en"	"[Debug] Sound Blocked"
+		"ru"	"[Дебаг] Звук заблокирован"
+	}
+
+	"Debug Output Blocked"
+	{
+		"en"	"[Debug] Output Blocked (%s)"
+		"ru"	"[Дебаг] Вывод заблокирован (%s)"
+	}
+}

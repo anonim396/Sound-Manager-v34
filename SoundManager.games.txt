@@ -1,0 +1,109 @@
+"Games"
+{
+	"cstrike"
+	{
+		"Addresses"
+		{
+			"CSoundscapeSystem"
+			{
+				"windows"
+				{
+					"signature"		"soundscape_flush"
+					"read"			"89" //73
+				}
+				"linux"
+				{
+					"signature"		"g_SoundscapeSystem"
+				}
+			}
+		}
+
+		"Signatures"
+		{
+			// search for "Error parsing soundscape file %s after %s" to find CSoundscapeSystem::AddSoundscapeFile. Then go to vtable that references it...
+			// go up two functions to find CSoundscapeSystem::FrameUpdatePostEntityThink
+			// then look around the middle for calls to CEnvSoundscape::UpdateForPlayer
+			// You can find stuff like this inside UpdateForPlayer: (which are floats)
+			//    local_24 = 0x41200000;
+			//    local_20 = 0x41200000;
+			//    local_1c = 0x41200000;
+			//    local_30 = 0xc1200000;
+			//    local_2c = 0xc1200000;
+			//    local_28 = 0xc1200000;
+			//"CEnvSoundscape::UpdateForPlayer"
+			//{
+			//	"library"		"server"
+			//	"windows"		"\x83\xEC\x38\x56\x8B\xF1\xE8\x2A\x2A\x2A\x2A"
+			//	"linux"			"\x55\x57\x56\x53\x81\xEC\x8C\x00\x00\x00\x8B\xAC\x24\x2A\x2A\x2A\x2A\x89\x2C\x24\xE8\x2A\x2A\x2A\x2A\x80\xBD\x2A\x2A\x2A\x2A\x01"
+			//}
+
+			// search "CGameServer::BroadcastSound:" to find CGameServer::BroadcastSound and it includes a call to CGameClient::SendSound somewhere near the bottom
+			"CGameClient::SendSound"
+			{
+				"library"		"engine"
+				"windows"		"\x64\xA1\x2A\x2A\x2A\x2A\x6A\xFF\x68\x2A\x2A\x2A\x2A\x50\x64\x89\x25\x2A\x2A\x2A\x2A\x81\xEC\xC4\x00\x00\x00"
+				"linux"			"\x81\xEC\x1C\x01\x00\x00\x89\x9C\x24\x0C\x01\x00\x00\x8B\x9C\x24\x20\x01\x00\x00"
+			}
+
+			// search "cl_soundscape_flush" to find the command handler for "soundscape_flush"
+			"soundscape_flush"
+			{
+				"library"		"server"
+				"windows"		"\x56\xE8\x2A\x2A\x2A\x2A\x8B\xF0\x85\xF6\x74\x0E\x8B\x06\x8B\xCE\xFF\x90\x2C\x01\x00\x00\x84\xC0\x75\x02\x33\xF6"
+				// Linux: use the symbol directly if needed
+				//"linux"			"@_ZL16soundscape_flushv"
+			}
+
+			// search "Shared activity collision" to find ActivityList_RegisterSharedActivity and the first function called inside is GetStringID
+			"CStringRegistry::GetStringID"
+			{
+				"library"		"server"
+				"windows"		"\x8B\x44\x24\x2A\x83\xEC\x08\x85\xC0\x53"
+				"linux"			"@_ZN15CStringRegistry11GetStringIDEPKc"
+			}
+
+			// Linux: global CSoundscapeSystem object symbol
+			"g_SoundscapeSystem"
+			{
+				"library"		"server"
+				"linux"			"@g_SoundscapeSystem"
+			}
+		}
+
+		"Offsets"
+		{
+			// search "Replay client not found" to find CReplayServer::StartMaster and then look for the "cl_predict" string setting and grab the GetPlayerSlot offset from the next function call.
+			"CBaseClient::GetPlayerSlot"
+			{
+				"windows"		"14"
+				"linux"			"15"
+			}
+			// find in CSoundscapeSystem::GetSoundscapeIndex
+			"CSoundscapeSystem::m_soundscapes"
+			{
+				"windows"		"12"
+				"linux"			"12"
+			}
+			"SoundInfo_t::fVolume"
+			{
+				"windows"		"40"
+				"linux"			"40"
+			}
+			"SoundInfo_t::bIsAmbient"
+			{
+				"windows"		"85"
+				"linux"			"85"
+			}
+			"ss_update_t::pCurrentSoundscape"
+			{
+				"windows"		"4"
+				"linux"			"4"
+			}
+			"CGameClient::thing"
+			{
+				"windows"		"4"
+				"linux"			"4"
+			}
+		}
+	}
+}
